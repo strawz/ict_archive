@@ -46,10 +46,6 @@ class ArchiveFile(models.Model):
     )
     status = models.CharField(blank=True, max_length=2, choices=STATUS_CHOICES,
                               help_text="Статус файла")
-    # TODO: Разобраться с гугловыми уровнями доступа и добавить соответствующие поля.
-    #       Поля имен/емейлов владельцев файла пока не нужны.
-    # ownerName = models.CharField(default='', max_length=255, help_text="Имя владельца файла")
-    # ownerEmail = models.CharField(default='', max_length=255, help_text="email адрес владельца файла")
 
     # У файла могут быть копии в более высоком/низком качестве
     copies = models.ManyToManyField('self', blank=True, default=None, help_text="Копии файла")
