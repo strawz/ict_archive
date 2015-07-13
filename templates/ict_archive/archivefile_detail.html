@@ -1,0 +1,48 @@
+{% extends "ict_archive/base_files.html" %}
+
+{% block title %}{{ block.super }} | Файл #{{ object.id }}{% endblock %}
+
+{% block navbar-links %}
+<li><a href="{% url 'ict_archive:index' %}">Архив</a></li>
+<li class="active"><a href="{% url 'ict_archive:achivefile-detail' object.id %}">Файл #{{ object.id }}</a></li>
+{% endblock %}
+
+
+{% block content %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+  	Файл <a href="{% url 'ict_archive:achivefile-detail' object.id %}">#{{ object.id }}</a>
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>Автор</th>
+      <th>Исходный путь к файлу</th>
+      <th>MD5</th>
+      <th>Размер, Б</th>
+      <th>Ссылка</th>
+      <th>Google Drive ID</th>
+      <th>MIME-тип</th>
+      <th>Избранное?</th>
+    </tr>
+    <tr>
+		<td>{{ object.entryWriter }}</td>
+		<td>{{ object.filePath }}</td>
+		<td>{{ object.md5Checksum }}</td>
+		<td> {{ object.fileSize }}</td>
+		<td>
+			<a href="{{ object.webContentLink }}"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></a>
+		</td>
+		<td>{{ object.googleDriveFileId }}</td>
+		<td>{{ object.mimeType }}</td>
+		<td>
+			{% if object.favorite %}
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			{% else %}
+				<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+			{% endif %}
+		</td>
+	</tr>
+  </table>
+</div>
+{% endblock %}

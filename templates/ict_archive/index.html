@@ -1,0 +1,44 @@
+{% extends "ict_archive/base_files.html" %}
+
+{% block title %}{{ block.super }} | Все файлы{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading">Все файлы архива</div>
+
+	<table class="table">
+	<tr>
+		<th>ID</th>
+		<th>Автор</th>
+		<th>Исходный путь к файлу</th>
+		<th>MD5</th>
+		<th>Размер, Б</th>
+		<th>Ссылка</th>
+		<th>MIME-тип</th>
+		<th>Избранное?</th>
+	</tr>
+	{% for f in object_list %}
+	<tr>
+		<td><a href="{% url 'ict_archive:achivefile-detail' f.id %}">{{ f.id }}</a></td>
+		<td>{{ f.entryWriter }}</td>
+		<td>{{ f.filePath }}</td>
+		<td>{{ f.md5Checksum }}</td>
+		<td> {{ f.fileSize }}</td>
+		<td>
+			<a href="{{ f.webContentLink }}"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></a>
+		</td>
+		<td>{{ f.mimeType }}</td>
+		<td>
+			{% if f.favorite %}
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			{% else %}
+				<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+			{% endif %}
+		</td>
+	</tr>
+	{% empty %}
+		Пока файлов нет.
+	{% endfor %}
+	</table>
+</div>
+{% endblock %}
